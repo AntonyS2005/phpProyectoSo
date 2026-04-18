@@ -1,0 +1,202 @@
+/* ── Reset & Base ──────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: #f0f2f5;
+    color: #2c3e50;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ── Navbar ─────────────────────────────────────────────────── */
+.navbar {
+    background: #1a1a2e;
+    color: #fff;
+    padding: .85rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,.3);
+}
+.brand { font-size: 1.1rem; font-weight: 700; letter-spacing: .5px; }
+.nav-right { display: flex; align-items: center; gap: 1rem; }
+.nav-user { font-size: .9rem; opacity: .85; }
+
+.badge {
+    font-size: .7rem;
+    font-weight: 700;
+    color: #fff;
+    padding: .25rem .6rem;
+    border-radius: 99px;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+}
+
+.btn-logout {
+    background: #e74c3c;
+    color: #fff;
+    text-decoration: none;
+    padding: .35rem .9rem;
+    border-radius: 6px;
+    font-size: .85rem;
+    font-weight: 600;
+    transition: background .2s;
+}
+.btn-logout:hover { background: #c0392b; }
+
+/* ── Container ───────────────────────────────────────────────── */
+.container {
+    max-width: 960px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    flex: 1;
+}
+
+h1 { font-size: 1.6rem; margin-bottom: 1.5rem; color: #1a1a2e; }
+h2 { font-size: 1.2rem; margin-bottom: 1rem; color: #34495e; }
+
+/* ── Card ────────────────────────────────────────────────────── */
+.card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 2px 12px rgba(0,0,0,.07);
+    margin-bottom: 1.5rem;
+}
+
+/* ── Alerts ──────────────────────────────────────────────────── */
+.alert {
+    padding: .85rem 1.2rem;
+    border-radius: 8px;
+    margin-bottom: 1.2rem;
+    font-size: .92rem;
+    font-weight: 500;
+}
+.alert-error   { background: #fdecea; color: #c0392b; border-left: 4px solid #e74c3c; }
+.alert-success { background: #e9f7ef; color: #1e8449; border-left: 4px solid #27ae60; }
+.alert-info    { background: #eaf3fb; color: #1a5276; border-left: 4px solid #2980b9; }
+
+/* ── Forms ───────────────────────────────────────────────────── */
+.form-group { margin-bottom: 1.1rem; }
+label { display: block; font-size: .88rem; font-weight: 600; margin-bottom: .35rem; color: #555; }
+
+input[type=text], input[type=email], input[type=password], select {
+    width: 100%;
+    padding: .65rem .9rem;
+    border: 1.5px solid #dde1e7;
+    border-radius: 8px;
+    font-size: .95rem;
+    transition: border-color .2s;
+    background: #fafafa;
+}
+input:focus, select:focus {
+    outline: none;
+    border-color: #2980b9;
+    background: #fff;
+}
+
+/* ── Buttons ─────────────────────────────────────────────────── */
+.btn {
+    display: inline-block;
+    padding: .65rem 1.4rem;
+    border: none;
+    border-radius: 8px;
+    font-size: .92rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: opacity .2s, transform .1s;
+}
+.btn:active { transform: scale(.98); }
+.btn-primary  { background: #1a1a2e; color: #fff; }
+.btn-primary:hover  { opacity: .85; }
+.btn-danger   { background: #e74c3c; color: #fff; }
+.btn-danger:hover   { opacity: .85; }
+.btn-secondary{ background: #95a5a6; color: #fff; }
+.btn-secondary:hover{ opacity: .85; }
+.btn-success  { background: #27ae60; color: #fff; }
+.btn-success:hover  { opacity: .85; }
+.btn-sm { padding: .35rem .8rem; font-size: .8rem; }
+
+/* ── Table ───────────────────────────────────────────────────── */
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+thead { background: #1a1a2e; color: #fff; }
+thead th { padding: .75rem 1rem; text-align: left; font-weight: 600; }
+tbody tr { border-bottom: 1px solid #ecf0f1; transition: background .15s; }
+tbody tr:hover { background: #f8f9fa; }
+tbody td { padding: .7rem 1rem; }
+
+.status-activo   { color: #27ae60; font-weight: 700; }
+.status-inactivo { color: #95a5a6; }
+.status-bloqueado{ color: #e74c3c; font-weight: 700; }
+
+/* ── Login Page ──────────────────────────────────────────────── */
+.login-wrap {
+    max-width: 420px;
+    margin: 5vh auto;
+}
+.login-logo {
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: .5rem;
+}
+.login-subtitle {
+    text-align: center;
+    color: #7f8c8d;
+    margin-bottom: 2rem;
+    font-size: .95rem;
+}
+
+/* ── Info grid ───────────────────────────────────────────────── */
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+.info-item label { font-size: .78rem; color: #888; margin-bottom: .15rem; }
+.info-item span  { font-size: 1rem; font-weight: 600; }
+
+/* ── Footer ──────────────────────────────────────────────────── */
+.footer {
+    text-align: center;
+    padding: 1rem;
+    font-size: .8rem;
+    color: #aaa;
+    background: #fff;
+    border-top: 1px solid #eee;
+}
+
+/* ── Action bar ──────────────────────────────────────────────── */
+.action-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.2rem;
+    flex-wrap: wrap;
+    gap: .5rem;
+}
+
+/* ── Modal ───────────────────────────────────────────────────── */
+.modal-bg {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,.45);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+}
+.modal-bg.open { display: flex; }
+.modal {
+    background: #fff;
+    border-radius: 14px;
+    padding: 2rem;
+    width: 100%;
+    max-width: 480px;
+    box-shadow: 0 8px 32px rgba(0,0,0,.2);
+}
+.modal h2 { margin-bottom: 1.2rem; }
+.modal-actions { display: flex; gap: .75rem; justify-content: flex-end; margin-top: 1.2rem; }

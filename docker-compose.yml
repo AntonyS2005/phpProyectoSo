@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  php-app:
+    build: .
+    container_name: php-app
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    environment:
+      DB_HOST: ${DB_HOST:-mysql}
+      DB_PORT: ${DB_PORT:-3306}
+      DB_NAME: ${DB_NAME:-MySQL}
+      DB_USER: ${DB_USER:-root}
+      DB_PASS: ${DB_PASS:-contra123}
+    networks:
+      - shared-net
+
+# ──────────────────────────────────────────────────────────────
+# Para usar Docker, crea un .env.docker en la raíz del proyecto
+# con el nombre del servicio MySQL:
+#   DB_HOST=mysql
+#   DB_NAME=userDB
+#   DB_USER=root
+#   DB_PASS=contra123
+# ──────────────────────────────────────────────────────────────
+networks:
+  shared-net:
+    external: false
+    driver: bridge

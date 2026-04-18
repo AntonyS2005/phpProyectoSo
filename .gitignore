@@ -1,0 +1,22 @@
+# Variables de entorno
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Vendor (si usa Composer)
+vendor/
+
+# Node (si llega a usar)
+node_modules/
+
