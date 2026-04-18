@@ -1,8 +1,7 @@
 <?php
-// ── Helper: abrir layout ──────────────────────────────────────
-function layout_head(string $title): void {
+function layout_head(string $title, string $layout = 'default'): void {
     $u = current_user();
-    $rol = $u['rol'] ?? '';
+    $rol      = $u['rol'] ?? '';
     $username = htmlspecialchars($u['username'] ?? '');
 
     $badge_color = match(strtolower($rol)) {
@@ -10,7 +9,7 @@ function layout_head(string $title): void {
         'consulta' => '#2980b9',
         default    => '#27ae60',
     };
-    ?>
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -19,8 +18,9 @@ function layout_head(string $title): void {
     <title><?= htmlspecialchars($title) ?> — Login as a Service</title>
     <link rel="stylesheet" href="/style.css">
 </head>
-<body>
-<?php if ($u): ?>
+<body class="layout-<?= $layout ?>">
+
+<?php if ($u && $layout === 'default'): ?>
 <nav class="navbar">
     <span class="brand">🔐 Login as a Service</span>
     <div class="nav-right">
@@ -32,16 +32,22 @@ function layout_head(string $title): void {
     </div>
 </nav>
 <?php endif; ?>
+
+<?php if ($layout === 'default'): ?>
 <main class="container">
     <h1><?= htmlspecialchars($title) ?></h1>
-    <?php
+<?php else: ?>
+<main class="layout-full">
+<?php endif; ?>
+
+<?php
 }
 
 function layout_foot(): void {
-    ?>
+?>
 </main>
 <footer class="footer">Login as a Service &copy; <?= date('Y') ?></footer>
 </body>
 </html>
-    <?php
+<?php
 }
