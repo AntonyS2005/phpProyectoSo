@@ -1,0 +1,28 @@
+{
+  "name": "phpproyectoso",
+  "version": "1.0.0",
+  "description": "Sistema de autenticación y privilegios con PHP y MySQL.",
+  "main": "index.js",
+  "scripts": {
+    "dev:css": "tailwindcss -i ./app/assets/css/tailwind.css -o ./app/assets/css/app.css --watch",
+    "build:css": "tailwindcss -i ./app/assets/css/tailwind.css -o ./app/assets/css/app.css --minify",
+    "test": "echo \"No tests configured\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AntonyS2005/phpProyectoSo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/AntonyS2005/phpProyectoSo/issues"
+  },
+  "homepage": "https://github.com/AntonyS2005/phpProyectoSo#readme",
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.2.4",
+    "daisyui": "^5.5.19",
+    "tailwindcss": "^4.2.4"
+  }
+}

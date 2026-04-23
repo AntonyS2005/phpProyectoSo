@@ -1,6 +1,4 @@
 <?php
-require_once __DIR__ . '/includes/auth.php';
+require_once __DIR__ . '/includes/app.php';
 session_init();
-logout();
-header('Location: /login.php');
-exit;
+logout(true);

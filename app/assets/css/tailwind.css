@@ -1,0 +1,122 @@
+@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;700;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap");
+@import "tailwindcss";
+@plugin "daisyui";
+@source "../../**/*.php";
+
+@plugin "daisyui/theme" {
+  name: "laas";
+  default: true;
+  prefersdark: false;
+  color-scheme: light;
+
+  --color-base-100: #f6f4ee;
+  --color-base-200: #ece6da;
+  --color-base-300: #ddd2bf;
+  --color-base-content: #172026;
+
+  --color-primary: #0b6e69;
+  --color-primary-content: #ecfeff;
+  --color-secondary: #9f4f11;
+  --color-secondary-content: #fff7ed;
+  --color-accent: #1d63c6;
+  --color-accent-content: #eff6ff;
+  --color-neutral: #121a22;
+  --color-neutral-content: #f9fafb;
+  --color-info: #0369a1;
+  --color-info-content: #f0f9ff;
+  --color-success: #15803d;
+  --color-success-content: #f0fdf4;
+  --color-warning: #b45309;
+  --color-warning-content: #fffbeb;
+  --color-error: #b91c1c;
+  --color-error-content: #fef2f2;
+
+  --radius-selector: 0.75rem;
+  --radius-field: 0.75rem;
+  --radius-box: 1rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 1;
+  --noise: 0;
+}
+
+@theme {
+  --font-sans: "IBM Plex Sans", sans-serif;
+  --font-display: "Bricolage Grotesque", sans-serif;
+}
+
+@layer base {
+  :root {
+    --app-grid-line: rgba(18, 26, 34, 0.05);
+  }
+
+  body {
+    @apply min-h-screen bg-base-100 text-base-content;
+    background-image:
+      linear-gradient(to right, transparent 0, transparent calc(100% - 1px), var(--app-grid-line) calc(100% - 1px)),
+      radial-gradient(circle at 0% 0%, rgba(11, 110, 105, 0.13), transparent 28%),
+      radial-gradient(circle at 100% 10%, rgba(159, 79, 17, 0.11), transparent 26%),
+      linear-gradient(180deg, rgba(255,255,255,0.35), rgba(255,255,255,0));
+    background-size: 28px 28px, auto, auto, auto;
+  }
+
+  .drawer-side {
+    scrollbar-color: rgba(255,255,255,0.2) transparent;
+  }
+
+  .table :where(th, td) {
+    white-space: nowrap;
+  }
+}
+
+@utility display-title {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+@layer components {
+  .glass-panel {
+    @apply rounded-[1.6rem] border border-base-300/70 bg-base-100/88 backdrop-blur-md shadow-[0_18px_50px_rgba(18,26,34,0.08)];
+  }
+
+  .metric-card {
+    @apply relative overflow-hidden rounded-[1.6rem] border border-base-300/70 bg-base-100/92 p-5 shadow-[0_18px_50px_rgba(18,26,34,0.08)] backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(18,26,34,0.12)];
+  }
+
+  .page-shell {
+    @apply mx-auto w-full max-w-[1600px] px-4 py-6 md:px-8 xl:px-10;
+  }
+
+  .panel-header {
+    @apply flex items-center justify-between gap-4 border-b border-base-300/70 px-6 py-5;
+  }
+
+  .panel-title {
+    @apply display-title text-[1.45rem] font-extrabold tracking-[-0.03em];
+  }
+
+  .panel-body {
+    @apply px-6 py-5;
+  }
+
+  .kicker {
+    @apply text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-base-content/45;
+  }
+
+  .sidebar-card {
+    @apply rounded-[1.75rem] border border-white/10 bg-white/5 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)];
+  }
+
+  .nav-pill {
+    @apply flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium transition duration-200;
+  }
+
+  .nav-pill-active {
+    @apply bg-white text-neutral shadow-[0_14px_28px_rgba(0,0,0,0.16)];
+  }
+
+  .nav-pill-idle {
+    @apply text-neutral-content/75 hover:bg-white/8 hover:text-white;
+  }
+}

@@ -1,30 +1,109 @@
-version: '3.8'
-
 services:
+  db-node-1:
+    image: bitnamilegacy/mariadb-galera:12.0.2
+    container_name: db-node-1
+    restart: unless-stopped
+    entrypoint:
+      - bash
+      - /opt/cluster/node1-entrypoint.sh
+    environment:
+      MARIADB_ROOT_PASSWORD: contra123
+      MARIADB_DATABASE: userDB
+      MARIADB_GALERA_CLUSTER_NAME: laas-cluster
+      MARIADB_GALERA_CLUSTER_ADDRESS: gcomm://db-node-1,db-node-2,db-node-3
+      MARIADB_GALERA_NODE_NAME: db-node-1
+      MARIADB_GALERA_NODE_ADDRESS: db-node-1
+      MARIADB_GALERA_MARIABACKUP_PASSWORD: backup123!
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./infra/galera/node1-entrypoint.sh:/opt/cluster/node1-entrypoint.sh:ro
+      - galera-node-1-data:/bitnami/mariadb
+    networks:
+      - shared-net
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin status -uroot -p$$MARIADB_ROOT_PASSWORD > /dev/null 2>&1"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+
+  db-node-2:
+    image: bitnamilegacy/mariadb-galera:12.0.2
+    container_name: db-node-2
+    restart: unless-stopped
+    depends_on:
+      db-node-1:
+        condition: service_healthy
+    environment:
+      MARIADB_ROOT_PASSWORD: contra123
+      MARIADB_DATABASE: userDB
+      MARIADB_GALERA_CLUSTER_NAME: laas-cluster
+      MARIADB_GALERA_CLUSTER_ADDRESS: gcomm://db-node-1,db-node-2,db-node-3
+      MARIADB_GALERA_NODE_NAME: db-node-2
+      MARIADB_GALERA_NODE_ADDRESS: db-node-2
+      MARIADB_GALERA_MARIABACKUP_PASSWORD: backup123!
+    ports:
+      - "3307:3306"
+    volumes:
+      - galera-node-2-data:/bitnami/mariadb
+    networks:
+      - shared-net
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin status -uroot -p$$MARIADB_ROOT_PASSWORD > /dev/null 2>&1"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+
+  db-node-3:
+    image: bitnamilegacy/mariadb-galera:12.0.2
+    container_name: db-node-3
+    restart: unless-stopped
+    depends_on:
+      db-node-1:
+        condition: service_healthy
+    environment:
+      MARIADB_ROOT_PASSWORD: contra123
+      MARIADB_DATABASE: userDB
+      MARIADB_GALERA_CLUSTER_NAME: laas-cluster
+      MARIADB_GALERA_CLUSTER_ADDRESS: gcomm://db-node-1,db-node-2,db-node-3
+      MARIADB_GALERA_NODE_NAME: db-node-3
+      MARIADB_GALERA_NODE_ADDRESS: db-node-3
+      MARIADB_GALERA_MARIABACKUP_PASSWORD: backup123!
+    ports:
+      - "3308:3306"
+    volumes:
+      - galera-node-3-data:/bitnami/mariadb
+    networks:
+      - shared-net
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin status -uroot -p$$MARIADB_ROOT_PASSWORD > /dev/null 2>&1"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+
   php-app:
     build: .
     container_name: php-app
     restart: unless-stopped
+    env_file:
+      - .env.docker
+    depends_on:
+      db-node-1:
+        condition: service_healthy
+      db-node-2:
+        condition: service_healthy
+      db-node-3:
+        condition: service_healthy
     ports:
       - "8080:80"
-    environment:
-      DB_HOST: ${DB_HOST:-mysql}
-      DB_PORT: ${DB_PORT:-3306}
-      DB_NAME: ${DB_NAME:-MySQL}
-      DB_USER: ${DB_USER:-root}
-      DB_PASS: ${DB_PASS:-contra123}
     networks:
       - shared-net
 
-# ──────────────────────────────────────────────────────────────
-# Para usar Docker, crea un .env.docker en la raíz del proyecto
-# con el nombre del servicio MySQL:
-#   DB_HOST=mysql
-#   DB_NAME=userDB
-#   DB_USER=root
-#   DB_PASS=contra123
-# ──────────────────────────────────────────────────────────────
+volumes:
+  galera-node-1-data:
+  galera-node-2-data:
+  galera-node-3-data:
+
 networks:
   shared-net:
-    external: false
     driver: bridge
