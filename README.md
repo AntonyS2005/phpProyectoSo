@@ -24,6 +24,7 @@ Sistema de autenticación y privilegios con PHP y MySQL.
    
    Edita `.env` con tus credenciales locales:
    ```
+   DB_HOSTS=127.0.0.1:3306,127.0.0.1:3307,127.0.0.1:3308
    DB_HOST=127.0.0.1
    DB_PORT=3306
    DB_NAME=userDB
@@ -121,6 +122,7 @@ Ese script:
 - Los 3 nodos forman un clúster Galera multi-primary.
 - Las escrituras se replican de forma síncrona entre nodos.
 - La app usa una lista de hosts (`DB_HOSTS`) y prueba automáticamente `db-node-1`, `db-node-2` y `db-node-3`.
+- Si ejecutas PHP local contra los contenedores, usa `DB_HOSTS=127.0.0.1:3306,127.0.0.1:3307,127.0.0.1:3308`.
 - Si un nodo cae, el usuario puede seguir trabajando sin cambiar URL.
 - Cuando un nodo vuelve, Galera lo resincroniza con SST/IST según corresponda.
 
@@ -140,7 +142,8 @@ Otros usuarios disponibles: `consulta`, `ingreso`
 
 | Variable | Local | Docker |
 |----------|-------|--------|
-| DB_HOST | 127.0.0.1 | mysql |
+| DB_HOSTS | 127.0.0.1:3306,127.0.0.1:3307,127.0.0.1:3308 | db-node-1:3306,db-node-2:3306,db-node-3:3306 |
+| DB_HOST | 127.0.0.1 | db-node-1 |
 | DB_PORT | 3306 | 3306 |
 | DB_NAME | userDB | userDB |
 | DB_USER | root | root |
